@@ -1,0 +1,67 @@
+<h2 style="font-size: 1.5rem;"
+    mat-dialog-title>{{data.title}} - {{data.start | date:'dd/MM/yyyy'}}</h2>
+<mat-dialog-content class="mat-typography">
+  <p><strong>Dress Code:</strong> <br> {{data.dressCode}}</p>
+  <p><strong>Location:</strong> <br> <a [href]="data.locationPos"
+       target="_blank">{{data.locationName}}</a></p>
+
+  <strong>Coristi ({{choristers.length}})</strong>
+  <div>
+    <table mat-table
+           [dataSource]="choristers"
+           class="mat-elevation-z8">
+      <ng-container matColumnDef="name">
+        <th mat-header-cell
+            *matHeaderCellDef> Nome </th>
+        <td mat-cell
+            *matCellDef="let element"> {{element.name}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="role">
+        <th mat-header-cell
+            *matHeaderCellDef> Ruolo </th>
+        <td mat-cell
+            *matCellDef="let element"> {{element.role}} </td>
+      </ng-container>
+
+      <tr mat-header-row
+          *matHeaderRowDef="displayedColumnsChoristers"></tr>
+      <tr mat-row
+          *matRowDef="let row; columns: displayedColumnsChoristers;"></tr>
+    </table>
+  </div>
+
+  <strong>Solisti ({{solisters.length}})</strong>
+  <div>
+    <table mat-table
+           [dataSource]="solisters"
+           class="mat-elevation-z8">
+      <ng-container matColumnDef="name">
+        <th mat-header-cell
+            *matHeaderCellDef> Nome </th>
+        <td mat-cell
+            *matCellDef="let element"> {{element.name}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="songs">
+        <th mat-header-cell
+            *matHeaderCellDef> Canzoni </th>
+        <td mat-cell
+            *matCellDef="let element">
+          @for (song of element.songs; track $index) {
+          <span>{{song}}</span><br>
+          }
+        </td>
+      </ng-container>
+
+      <tr mat-header-row
+          *matHeaderRowDef="displayedColumnsSolisters"></tr>
+      <tr mat-row
+          *matRowDef="let row; columns: displayedColumnsSolisters;"></tr>
+    </table>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button
+          mat-dialog-close>Chiudi</button>
+</mat-dialog-actions>
